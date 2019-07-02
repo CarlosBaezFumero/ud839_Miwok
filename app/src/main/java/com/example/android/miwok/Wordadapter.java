@@ -29,17 +29,17 @@ public class Wordadapter extends ArrayAdapter {
     /**
      * Provides a view for an AdapterView (ListView, GridView, etc.)
      *
-     * @param position The position in the list of data that should be displayed in the
-     *                 list item view.
+     * @param position    The position in the list of data that should be displayed in the
+     *                    list item view.
      * @param convertView The recycled view to populate.
-     * @param parent The parent ViewGroup that is used for inflation.
+     * @param parent      The parent ViewGroup that is used for inflation.
      * @return The View for the position in the AdapterView.
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if the existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
-        if(listItemView == null) {
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_item, parent, false);
         }
@@ -59,9 +59,20 @@ public class Wordadapter extends ArrayAdapter {
         // set this text on the number TextView
         defaultTextView.setText(currentWord.getDefaultTranslation());
 
+        ImageView defaultImageView = listItemView.findViewById(R.id.image);
+
+        if (currentWord.hasImage()) {
+            defaultImageView.setImageResource(currentWord.getImageResourceID());
+            defaultImageView.setVisibility(View.VISIBLE );
+        }
+        else{
+            defaultImageView.setVisibility(View.GONE);
+        }
+
+
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
         return listItemView;
 
-       }
+    }
 }
